@@ -1,0 +1,32 @@
+#You can run this file with sudo docker build . when in the same directory
+#Each command adds a layer to the final docker container, minimize the steps
+
+#the dev mode for a vite based react app is a nodejs server
+#"as build" --> multistage build approach
+FROM node:23.8.0-bullseye-slim as build
+
+#set working directory inside the container
+WORKDIR usr/src/app
+
+#copy package.json and package-lock.json now to avoid cache issues
+COPY package*.json ./
+
+#install dependencies from package-lock.json
+#RUN npm install
+#better to do ci clean install for production (won't download dev dependencies)
+RUN npm ci
+
+COPY . .
+
+#generate a set of static files (html, css, js) that can be served
+#these files are placed in a dist folder in the working directory
+RUN npm run build
+
+#non root user version of the nginx official image
+FROM nginxinc/nginx-unprivileged:1.27-alpine-perl
+
+COPY nginx.config etc/nginx/conf.d/default.conf
+
+COPY --from=build usr/src/app/dist usr/share/nginx/html
+
+EXPOSE 8080

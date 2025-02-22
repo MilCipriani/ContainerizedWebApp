@@ -1,4 +1,4 @@
-const fs = require('fs');  //fs stands for File System
+const fs = require('fs');  //fs = file system
 
 const { Pool } = require('pg');
 
@@ -9,7 +9,6 @@ databaseUrl =
   fs.readFileSync(process.env.DATABASE_URL_FILE, 'utf8');
   //fs.readFileSync() reads a file synchronously
   
-
 const pool = new Pool({
   connectionString: databaseUrl,
 });
