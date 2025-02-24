@@ -5,6 +5,7 @@ const { Pool } = require('pg');
 databaseUrl =
 //this block attempts to read the database URL from the env variable
 //if it can't find it then it searches for the db URL file
+//should look like this DATABASE_URL=postgres://postgres:koicarp32@localhost:5432/postgres
   process.env.DATABASE_URL ||
   fs.readFileSync(process.env.DATABASE_URL_FILE, 'utf8');
   //fs.readFileSync() reads a file synchronously

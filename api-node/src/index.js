@@ -4,7 +4,9 @@ const express = require('express') //Dockerfile will install this dependency wit
 const app = express()
 const port = process.env.PORT || 3000;
 
-app.use(cors()); // enable CORS for all requests
+app.use(cors({
+  origin: '*',   // enable CORS for all requests
+}));
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

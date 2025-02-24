@@ -1,0 +1,20 @@
+#You can run this file with sudo docker build . when in the same directory
+#Each command adds a layer to the final docker container, minimize the steps
+
+#the dev mode for a vite based react app is a nodejs server
+#"as build" --> multistage build approach
+FROM node:23.8.0-bullseye-slim
+
+#set working directory inside the container
+WORKDIR /usr/src/app
+
+#copy package.json and package-lock.json now to avoid cache issues
+COPY package*.json ./
+#every other file needed is mounted as volume
+
+#install dependencies from package-lock.json (including dev dep)
+RUN npm install
+
+EXPOSE 5173
+
+CMD ["npm","run","dev"]
