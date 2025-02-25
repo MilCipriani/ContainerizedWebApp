@@ -42,7 +42,7 @@ function App() {
       </p>
 
       {/* Display API response */}
-      <h2>API Test!!</h2>
+      <h2>API Test!</h2>
       {data ? <p>API Response: {JSON.stringify(data)}</p> : <p>Loading...</p>}
     </>
   )
