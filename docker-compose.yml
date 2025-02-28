@@ -1,5 +1,8 @@
 name: ContainerizedWebApp
+
+
 services:
+
     postgres-db:
         container_name: postgres-db
         networks:
@@ -12,14 +15,17 @@ services:
             - 5432:5432
         restart: unless-stopped
         image: postgres:15.1-alpine3.16
+
+
     node-api:
         container_name: node-api
         build:
             context: api-node/
             dockerfile: Dockerfile
+            target: dev #choose stage of multistage dockerfile (defaults to prod)
         init: true
         depends_on:
-        - postgres-db
+            - postgres-db
         networks:
             - my-network
         environment:
@@ -28,6 +34,8 @@ services:
             - 3000:3000
         restart: unless-stopped
         image: node-api
+
+
     react-client-vite:
         container_name: react-client-vite
         build:
@@ -37,12 +45,14 @@ services:
         networks:
             - my-network
         volumes:
-            - ${PWD}/react-client:/usr/src/app
-            - /usr/src/app/node_modules
+            - ${PWD}/react-client:/usr/src/app #bind mount
+            - /usr/src/app/node_modules #volume mount
         ports:
             - 5173:5173
         restart: unless-stopped
         image: react-client-vite
+
+    
     react-client-ngnix:
         build:
             context: react-client/
@@ -55,10 +65,14 @@ services:
             - 80:8080
         restart: unless-stopped
         image: react-client-ngnix
+
+
 networks:
     my-network:
 #        external: true
         name: my-network
+
+
 volumes:
     pgdata:
         external: true

@@ -3,5 +3,8 @@
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "pg": "^8.13.3"
+  },
+  "scripts": {
+    "dev": "node src/index.js"
   }
 }
