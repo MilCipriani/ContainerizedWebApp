@@ -2,7 +2,6 @@
 #Each command adds a layer to the final docker container, minimize the steps
 
 #the dev mode for a vite based react app is a nodejs server
-#"as build" --> multistage build approach
 FROM node:23.8.0-bullseye-slim AS build
 
 #set working directory inside the container
@@ -22,7 +21,7 @@ COPY . .
 #these files are placed in a dist folder in the working directory
 RUN npm run build
 
-#non root user version of the nginx official image
+#non root user version of the nginx official image (port 8080!!)
 FROM nginxinc/nginx-unprivileged:1.27-alpine-perl
 
 COPY nginx.config /etc/nginx/conf.d/default.conf

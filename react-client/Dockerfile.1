@@ -2,7 +2,6 @@
 #Each command adds a layer to the final docker container, minimize the steps
 
 #the dev mode for a vite based react app is a nodejs server
-#"as build" --> multistage build approach
 FROM node:23.8.0-bullseye-slim
 
 #set working directory inside the container
@@ -10,7 +9,7 @@ WORKDIR /usr/src/app
 
 #copy package.json and package-lock.json now to avoid cache issues
 COPY package*.json ./
-#every other file needed is mounted as volume
+#every other file needed is mounted as volume in docker-compose
 
 #install dependencies from package-lock.json (including dev dep)
 RUN npm install

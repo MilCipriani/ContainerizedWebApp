@@ -17,7 +17,6 @@ app.get('/', async (req, res) => {
   const dateTime = await getDateTime();
   const response = dateTime;
   res.send(response);
-  //res.json(response); // Send response as JSON cause react doesn't like object with keys
 });
 
 //PING ****

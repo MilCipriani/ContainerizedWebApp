@@ -59,14 +59,6 @@ docker-run-all:
 		--restart unless-stopped \
 		node-api
 
-#	docker run -d \
-		--name react-client-vite \
-		--network my-network \
-		-v ${PWD}/react-client/vite.config.js:/usr/src/app/vite.config.js \
-		-p 5173:5173 \
-		--restart unless-stopped \
-		react-client-vite
-
 	docker run -d \
     --name react-client-vite \
     --network my-network \
@@ -77,7 +69,7 @@ docker-run-all:
     react-client-vite
 #-v ${PWD}/react-client:/usr/src/app mounts the whole thing into the container's work dir
 #-v /usr/src/app/node_modules makes sure the node_modules folder stays empty to avoid conflicts
-#this enables hot reloading from vite	
+#this allows hot reloading from vite	
 
 	docker run -d \
 		--name react-client-ngnix \
