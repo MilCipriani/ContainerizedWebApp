@@ -22,7 +22,7 @@ function App() {
     <>
       {/* Display API response */}
       <h2>API Test!</h2>
-      {data ? <p>API Response: {JSON.stringify(data)}</p> : <p>Loading...</p>}
+      {data ? <p>API Response: {JSON.stringify(data.now).replace(/"/g, '')}</p> : <p>Loading...</p>}
     </>
   )
 }

@@ -7,7 +7,6 @@ FROM node:23.8.0-alpine AS base
 #set working directory inside the container
 WORKDIR /usr/src/app
 
-
 #copy package.json and package-lock.json now to avoid cache issues
 COPY package*.json ./
 
